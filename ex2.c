@@ -45,7 +45,7 @@ int main(int argc, char *argv[]) {
 
 }
 
-//ceaser cypher (high-key used chatGPT)
+//ceaser cypher
 void encrypt(char* pointer, int key) {
     // Check if the character is a letter
     if (('A' <= *pointer && *pointer <= 'Z') || ('a' <= *pointer && *pointer <= 'z')) {
