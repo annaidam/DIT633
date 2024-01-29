@@ -29,16 +29,22 @@ void count_frequency(int *tab, int *freq ) {
 // This function takes the frequency count table
 // and draws a histogram of the values in that frequency table
 void draw_histogram(int *freq ) {
-    for (int i = 0; i < MAX; i++) {
-        printf("%d ", freq[i]);
-
-        for (int j = 1; j < MAX; j++) {
+    for (int i = 0; i < MAXNUMBER; i++) {
+        int count = 0;
+        for (int j = 1; j < MAXNUMBER; j++) {
             if (freq[i] == freq[j]) {
-                printf("x");
+                count++;
             }
         }
+        if (count != 0) {
+            printf("%d: ", i);
 
-        printf("\n");
+            for (int j = 0; j < count; j++) {
+                printf("x");
+            }
+
+            printf("\n");
+        }
     }
 }
 
