@@ -5,6 +5,7 @@
 //includes
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 //function declarations
 void BinaryToHex(char *binaryData, char *hexData);
@@ -19,24 +20,45 @@ int main(int argc, char *argv[]) {
     const int bufferSize = 1024;
     char *binaryData = malloc(bufferSize);
     char *hexData = malloc(bufferSize/4);
+   
 
+    // ---various checks---
+
+    //check that there is an input
     if (!binaryData) {
         perror("Memory allocation failed");
-        return 1;
+        return 2;//exit with error code 2
     }
 
-    // Read binary data from stdin
-    if (fgets(binaryData, bufferSize, stdin) == NULL) {
-        perror("Failed to read from stdin");
-        free(binaryData);
-        return 1;
+    if (argc == 2 && argv[1][0] == '-' && argv[1][1] == 'h')
+    {
+        printf("Usage: this program prints the binary form of the number given, give the number as a parameter after the program: decimalToBinary.exe <number>\n");
+        printf("note: this program can be used in conjunction with binaryToHex to instead be given the hexadecimal of the number: decimalToBinary.exe <number> | binaryToHex.exe\n");
+        return 0;
+    } else if (argc == 2)
+    {
+        binaryData = argv[1];
+    }
+    else
+    {
+        // Read binary data from stdin
+        if (fgets(binaryData, bufferSize, stdin) == NULL) {
+            perror("Error reading binary data");
+            return 2;//exit with error code 2
+        }
     }
 
-    // checks that the previous program did not return 2
-    if (binaryData[0] == '2') {
-        printf("Invalid input\n");
-        return 2;
+    //check that the input is a number (would only be something other than 1s and 0s if the previous program failed)
+    unsigned char *p = binaryData;
+    while (*p != '\0') {
+        if (!isdigit(*p) && *p != '\n') {
+            printf("Invalid input\n");
+            return 2;//exit with error code 2
+        }
+        p++;
     }
+    
+    // ---the actual program---
 
     // Convert binary data to hex
     BinaryToHex(binaryData, hexData);
@@ -44,7 +66,7 @@ int main(int argc, char *argv[]) {
     // Print the hex data
     printf("%s\n", hexData);
 
-    //return
+    //return 0 to indicate success
     return 0;
 }
 

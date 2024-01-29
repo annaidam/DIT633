@@ -7,11 +7,12 @@
 #include <stdlib.h>
 #include <limits.h>
 #include <stdbool.h>
+#include <ctype.h>
 
-
-#define SET_BIT(buffer, index) ((buffer)[(index) / 8] |= (1 << ((index) % 8)))
-#define CLEAR_BIT(buffer, index) ((buffer)[(index) / 8] &= ~(1 << ((index) % 8)))
-#define GET_BIT(buffer, index) (((buffer)[(index) / 8] >> ((index) % 8)) & 1)
+//I got help from https://stackoverflow.com/questions/35373034/read-a-single-bit-from-a-buffer-of-char
+#define SET_BIT(buffer, index) ((buffer)[index / 8] |= (1 << ((index) % 8)))
+#define CLEAR_BIT(buffer, index) ((buffer)[index / 8] &= ~(1 << ((index) % 8)))
+#define GET_BIT(buffer, index) (((buffer)[index / 8] >> ((index) % 8)) & 1)
 
 
 //function declarations
@@ -31,30 +32,43 @@ int main(int argc, char *argv[]) {
     long MAX = LONG_MAX;
     int number = strtol(argv[1], NULL, 10);
 
-    //check that the input is valid in various ways
-    /*
+    // ---check that the input is valid in various ways---
+    
     //check that the input is not too big or too small
     if (number > MAX || number < 0) {
         printf("Invalid input\n");
         return 2;
     }
-    //check that there is only one input
-    if (argc != 2) {
+
+    //check that there is an input
+    if (argc < 2) {
         printf("Invalid input\n");
         return 2;
     }
+
+    //check for the help flag
+    if (argv[1][0] == '-' && argv[1][1] == 'h') {
+        printf("Usage: this program prints the binary form of the number given, give the number as a parameter after the program: decimalToBinary.exe <number>\n");
+        printf("note: this program can be used in conjunction with binaryToHex to instead be given the hexadecimal of the number: decimalToBinary.exe <number> | binaryToHex.exe\n");
+        return 2;
+    }
     //check that the input is a number
-    for (size_t i = 0; i < sizeof(argv[1]); i++)
-    {
-        if (argv[1][i] < '0' || argv[1][i] > '9') {
+    unsigned char *p = argv[1];
+    while (*p != '\0') {
+        if (!isdigit(*p)) {
             printf("Invalid input\n");
             return 2;
         }
-    }
+        p++;
+    } 
+    free(p);
 
-    */
-
+    // ---the actual program---
+    
+    //finds the minimum amount of bytes needed to represent the number
     findBitsAndBytes(number);
+
+    //creates a buffer of the correct size
     unsigned char *buffer = malloc(global_bytes);//this is a pointer to the first byte of the buffer
     if (buffer == NULL) {
         perror("Memory allocation failed");
@@ -67,7 +81,7 @@ int main(int argc, char *argv[]) {
     // Print the buffer
     printBuffer(buffer);
 
-    //return
+    //return 0 to indicate success
     return 0;
 
 }
