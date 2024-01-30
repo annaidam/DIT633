@@ -1,3 +1,8 @@
+// (C) David Schön, Milena Mackowiak, Anna Mäkinen, group: 3 (2024)
+// Work package 3
+// Exercise 3
+// Submission code: XXXXXX (provided by your TA-s)
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>

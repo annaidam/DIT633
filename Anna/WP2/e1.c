@@ -1,3 +1,8 @@
+// (C) David Schön, Milena Mackowiak, Anna Mäkinen, group: 3 (2024)
+// Work package 2
+// Exercise 1
+// Submission code: XXXXXX (provided by your TA-s)
+
 #include <stdio.h>
 
 enum DIRECTION { N, E, S, W };
