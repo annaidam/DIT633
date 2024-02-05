@@ -1,4 +1,4 @@
-// (C) David Schön, Milena Mackowiak, Anna Mäkinen, group: 3 (2024)
+// (C) Anna Mäkinen, David Schön, Milena Mackowiak, group: 3 (2024)
 // Work package 2
 // Exercise 2
 // Submission code: XXXXXX (provided by your TA-s)
