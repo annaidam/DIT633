@@ -128,6 +128,7 @@ switch (choice_nr){
 
     case 5:
         return 0;
+        break;
 
     default:
         printf("Not implemented yet.\n");

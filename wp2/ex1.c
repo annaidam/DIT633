@@ -29,7 +29,7 @@ void move(ROBOT* robot){
 };
 
 void turn(ROBOT* robot){
-    // Rotates the robot 90 degrees clockwise.
+    // Rotate the robot 90 degrees clockwise.
     robot->dir = (robot->dir + 1) % 4;
 };
 
@@ -60,7 +60,6 @@ int main(int argc, char *argv[]){
     printf("Provide instructions for the robot (ending with '#'): \n");
     scanf("%s", instructions);
 
-    //printf("X-coordinate: %d, y-coordinate: %d. \n", x, y);
     robot.dir = N;
     
     for (int i = 0; instructions[i] != '#'; i++) {
