@@ -1,6 +1,7 @@
-// (C) David, group: 3 (2024)
+// (C) David Schön, Milena Mackowiak, Anna Mäkinen, group: 3 (2024)
 // Work package 1
-// Excersise 3
+// Exercise 3
+// Submission code: 415678 (provided by your TA-s)
 
 //includes
 #include <stdio.h>

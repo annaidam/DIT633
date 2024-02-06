@@ -1,6 +1,7 @@
-// (C) David, group: 3 (2024)
-// Work package -
-// Excersise -
+// (C) David Schön, Milena Mackowiak, Anna Mäkinen, group: 3 (2024)
+// Work package 1
+// Exercise 4
+// Submission code: 415678 (provided by your TA-s)
 
 //includes
 #include <stdio.h>
@@ -116,10 +117,6 @@ void findBitsAndBytes(int number){
 
     //converts the bits to bytes, and saves it in the global variable
     global_bytes = bits / 8;
-
-    //prints bits and bytes
-    //printf("bits: %d\n", global_bits);
-    //printf("bytes: %d\n", global_bytes);
 }
 
 void fillBuffer(int number, unsigned char *buffer) {
