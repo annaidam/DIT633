@@ -1,7 +1,7 @@
 // (C) Anna Mäkinen, David Schön, Milena Mackowiak, group: 3 (2024)
 // Work package 3
 // Exercise 3
-// Submission code: XXXXXX (provided by your TA-s)
+// Submission code: 31299177
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -36,11 +36,13 @@ void write_new_file(PERSON *inrecord) {
     FILE *file = fopen(filename, "wb");
 
     if (file == NULL) {
-        perror("Cannot open the file\n\n");
+        perror("File doesn't exist\n\n");
         return;
     }
 
-    fwrite(inrecord, sizeof(PERSON), 1, file);
+    if (fwrite(inrecord, sizeof(PERSON), 1, file)) {
+        printf("\nSuccesfully created file.\n");
+    }
 
     fclose(file);
 }
@@ -51,7 +53,7 @@ void printfile(void) {
     FILE *file = fopen(filename, "rb");
 
     if (file == NULL) {
-        perror("Cannot open the file\n\n");
+        perror("File doesn't exist\n\n");
         return;
     }
 
@@ -73,10 +75,9 @@ void search_by_firstname(char *name) {
     FILE *file = fopen(filename, "rb");
 
     if (file == NULL) {
-        perror("Cannot open the file\n\n");
+        perror("File doesn't exist\n\n");
         return;
     }
-
     PERSON placeholderPerson;
 
     // Print everyone with the matching name
@@ -102,7 +103,7 @@ void append_file(PERSON *inrecord) {
     FILE *file = fopen(filename, "ab");
 
     if (file == NULL) {
-        perror("Cannot open the file\n\n");
+        perror("File doesn't exist\n\n");
         return;
     }
 
@@ -121,7 +122,6 @@ int main(void){
 
         switch (option) {
             case 1:
-                ppost = input_record();
                 write_new_file(&ppost);
                 break;
 

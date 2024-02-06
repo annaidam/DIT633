@@ -1,3 +1,8 @@
+// (C) Milena Mackowiak, Anna Mäkinen, David Schön, group: 3 (2024)
+// Work package 2
+// Exercise 1
+// Submission code: 31299177
+
 // gcc -Wall -o WP2/ex1.exe WP2/ex1.c
 // gcc -Wall -o ex1.exe ex1.c    
 #include <stdio.h>

@@ -1,7 +1,7 @@
 // (C) Anna Mäkinen, David Schön, Milena Mackowiak, group: 3 (2024)
 // Work package 2
 // Exercise 2
-// Submission code: XXXXXX (provided by your TA-s)
+// Submission code: 31299177
 
 #include <stdio.h>
 #include <stdlib.h>
