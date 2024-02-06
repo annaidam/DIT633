@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 
-enum DIRECTION { N, W, S, E};
+enum DIRECTION { N, E, S, W};
 
 typedef struct {
     int xpos;
