@@ -1,6 +1,6 @@
-// (C) David, group: 3 (2024)
-// Work package -
-// Excersise -
+// (C) David, Anna, Milena group: 3 (2024)
+// Work package 2
+// Excersise 4
 
 //includes
 #include <stdio.h>

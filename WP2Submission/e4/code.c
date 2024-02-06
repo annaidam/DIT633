@@ -1,6 +1,6 @@
-// (C) David, group: 3 (2024)
-// Work package -
-// Excersise -
+// (C) David, Anna, Milena, group: 3 (2024)
+// Work package 2
+// Excersise 4
 
 //includes
 #include <stdio.h>
@@ -44,7 +44,7 @@ int main(int argc, char *argv[]) {
     {
         for (size_t i = 1; i < argc; i++)
         {
-            unsigned char *p = argv[i];
+            char *p = argv[i];
             while (*p != '\0') {
                 if (!isdigit(*p)) {
                     printf("Invalid input");
