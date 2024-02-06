@@ -107,14 +107,10 @@ int main(int argc, char *argv[]) {
         {
             brake2 = 0;
         }
-        
-        
-        
-        
     }
     else
     {
-        perror("Error with arguments");
+        printf("Error with arguments");
         return 2;//exit with error code 2
     }
 
@@ -144,6 +140,7 @@ void hexToBin(char* hexdec, char* binaryNum)
 	//Skips "0x" if present
 	size_t i = (hexdec[1] == 'x' || hexdec[1] == 'X')? 2 : 0;
 
+    
 	while (hexdec[i]) {
 
 		switch (hexdec[i]) {
@@ -206,8 +203,15 @@ void hexToBin(char* hexdec, char* binaryNum)
 		default:
 			printf("\nInvalid hexadecimal digit %c",
 				hexdec[i]);
+            return 2;
 		}
 		i++;
+        if (i > 1)
+        {
+            printf("Invalid hexadecimal, too long.");
+            return 2;
+        }
+        
 	}
 }
 
