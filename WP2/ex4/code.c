@@ -17,6 +17,7 @@ void packBrake1(unsigned char* byte, int brake1);
 void packBrake2(unsigned char* byte, int brake2);
 void BinaryToHex(unsigned char *byte);
 void clearByte(unsigned char* byte);
+
 //macros
 #define SET_BIT(buffer, index) ((buffer)[(index) / 8] |= (1 << ((index) % 8)))
 #define CLEAR_BIT(buffer, index) ((buffer)[(index) / 8] &= ~(1 << ((index) % 8)))
@@ -37,8 +38,7 @@ int main(int argc, char *argv[]) {
     //argument check for -h or a valid case, if neither, return error
     if (argc == 2 && argv[1][0] == '-' && argv[1][1] == 'h')
     {
-        printf("Usage: this program prints the binary form of the number given, give the number as a parameter after the program: decimalToBinary.exe <number>\n");
-        printf("note: this program can be used in conjunction with binaryToHex to instead be given the hexadecimal of the number: decimalToBinary.exe <number> | binaryToHex.exe\n");
+        printf("Usage: this program packs information in a byte and prints it in hexadecimal\n");
         return 0;
     } else if (argc == 6)
     {
@@ -47,7 +47,7 @@ int main(int argc, char *argv[]) {
             unsigned char *p = argv[i];
             while (*p != '\0') {
                 if (!isdigit(*p)) {
-                    perror("Invalid input");
+                    printf("Invalid input");
                     return 2;//exit with error code 2
                 }
                 p++;
@@ -69,11 +69,11 @@ int main(int argc, char *argv[]) {
     clearByte(byte);
     //packing the bits
     
-    packEngine(byte, engine_on);printf("\n");
-    packGearPos(byte, gear_pos);printf("\n");
-    packKeyPos(byte, key_pos);printf("\n");
-    packBrake1(byte, brake1);printf("\n");
-    packBrake2(byte, brake2);printf("\n");
+    packEngine(byte, engine_on);
+    packGearPos(byte, gear_pos);
+    packKeyPos(byte, key_pos);
+    packBrake1(byte, brake1);
+    packBrake2(byte, brake2);
     
 
     //byte[0] = 0b10101011;
@@ -97,11 +97,9 @@ void packEngine(unsigned char* byte, int engine_on) {
     switch (engine_on)
     {
     case 1:
-        printf("1");
         SET_BIT(byte, 7);
         break;
     case 0:
-        printf("0");
         CLEAR_BIT(byte, 7);
         break;
     default:
@@ -117,35 +115,30 @@ void packGearPos(unsigned char* byte, int gear_pos) {
     {
     case 4:
         //100
-        printf("100");
         SET_BIT(byte, 6);
         CLEAR_BIT(byte, 5);
         CLEAR_BIT(byte, 4);
         break;
     case 3:
         //011
-        printf("011");
         CLEAR_BIT(byte, 6);
         SET_BIT(byte, 5);
         SET_BIT(byte, 4);
         break;
     case 2:
         //010
-        printf("010");
         CLEAR_BIT(byte, 6);
         SET_BIT(byte, 5);
         CLEAR_BIT(byte, 4);
         break;
     case 1:
         //001
-        printf("001");
         CLEAR_BIT(byte, 6);
         CLEAR_BIT(byte, 5);
         SET_BIT(byte, 4);
         break;
     case 0:
         //000
-        printf("000");
         CLEAR_BIT(byte, 6);
         CLEAR_BIT(byte, 5);
         CLEAR_BIT(byte, 4);
@@ -161,19 +154,16 @@ void packKeyPos(unsigned char* byte, int key_pos) {
     {
     case 2:
         //10
-        printf("10");
         SET_BIT(byte, 3);
         CLEAR_BIT(byte, 2);
         break;
     case 1:
         //01
-        printf("01");
         CLEAR_BIT(byte, 3);
         SET_BIT(byte, 2);
         break;
     case 0:
         //00
-        printf("00");
         CLEAR_BIT(byte, 3);
         CLEAR_BIT(byte, 2);
         break;
@@ -188,12 +178,10 @@ void packBrake1(unsigned char* byte, int brake1){
     {
     case 1:
         //1
-        printf("1");
         SET_BIT(byte, 1);
         break;
     case 0:
         //0
-        printf("0");
         CLEAR_BIT(byte, 1);
         break;
     default:
@@ -208,12 +196,10 @@ void packBrake2(unsigned char* byte, int brake2) {
     {
     case 1:
         //1
-        printf("1");
         SET_BIT(byte, 0);
         break;
     case 0:
         //0
-        printf("0");
         CLEAR_BIT(byte, 0);
         break;
     default:
@@ -236,7 +222,6 @@ void BinaryToHex(unsigned char *byte){
             binaryData[i] = '0';
         }
     }
-    printf("%s\n", binaryData);
     while (*binaryData != '\0')
     {
         if (*(binaryData + 1) == '\0' || 
