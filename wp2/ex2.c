@@ -18,6 +18,8 @@ REGTYPE* random_list(void) {
     printf("Enter the number of elements in the list: \n");
     scanf("%d", &nr);
 
+    nr = nr - 1;
+
     for (int i = 0; i < nr; i++) {
         item = (REGTYPE*)malloc(sizeof(REGTYPE));
         item->number = rand() % (MAXNUMBER + 1);
@@ -64,18 +66,12 @@ int main(int argc, char* argv[]) {
         act_post = act_post->next;
     }
 
-    // Free the allocated memory
-    // while ((act_post = head) != NULL) {
-    //     head = act_post->next;
-    //     free(act_post);
-    // }
-
     // Add a new element at the beginning of the list using add_first()
     int data = 7; // New data for the first element
     head = add_first(head, data);
 
     // Display the updated list after adding a new element
-    printf("\nUpdated list after adding element at the beginning:\n");
+    printf("Updated list after adding element at the beginning:\n");
     nr = 0;
     act_post = head;
     while (act_post != NULL) {

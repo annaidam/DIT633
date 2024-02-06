@@ -134,6 +134,4 @@ switch (choice_nr){
         printf("Not implemented yet.\n");
         break;
     }
-
-
 }
