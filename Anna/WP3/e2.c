@@ -29,4 +29,71 @@ void loop()
   // turn the value into celsius
   float temperatureC = (voltage - 0.5) * 100;
   
-  // pr
+  // print the temperature in celsius
+  Serial.print("Temperature: ");
+  Serial.print(temperatureC);
+  Serial.println(" degrees C");
+  
+  // map the value of lightPin to a percentage
+  int lightPercentage = map(analogRead(lightPin), 0, 1023, 0, 100);
+
+  // print the light in percentage
+  Serial.print("Light Percentage: ");
+  Serial.print(lightPercentage);
+  Serial.println("%");
+  
+  // check if the temperature matches the correct light percentage
+  if (temperatureC < -12) {
+    if (lightPercentage == 0) {
+      // turn on the correct led accordingly
+      digitalWrite(3, LOW);
+      digitalWrite(2, LOW);
+      digitalWrite(4, HIGH);
+    } else {
+      digitalWrite(3, LOW);
+      digitalWrite(2, HIGH);
+      digitalWrite(4, LOW);
+    }
+  } else if ((temperatureC >= -12) && (temperatureC <= 0)) {
+    if ((lightPercentage >= 1) && (lightPercentage <= 20)) {
+      digitalWrite(3, LOW);
+      digitalWrite(2, LOW);
+      digitalWrite(4, HIGH);
+    } else if (lightPercentage < 1) {
+      digitalWrite(3, HIGH);
+      digitalWrite(2, LOW);
+      digitalWrite(4, LOW);
+    } else {
+      digitalWrite(3, LOW);
+      digitalWrite(2, HIGH);
+      digitalWrite(4, LOW);
+    }
+  } else if ((temperatureC >= 0) && (temperatureC <= 20)) {
+    if ((lightPercentage >= 21) && (lightPercentage <= 60)) {
+      digitalWrite(3, LOW);
+      digitalWrite(2, LOW);
+      digitalWrite(4, HIGH);
+    } else if (lightPercentage < 21) {
+      digitalWrite(3, HIGH);
+      digitalWrite(2, LOW);
+      digitalWrite(4, LOW);
+    } else {
+      digitalWrite(3, LOW);
+      digitalWrite(2, HIGH);
+      digitalWrite(4, LOW);
+    }
+  } else if (temperatureC >= 21) {
+    if (lightPercentage > 60) {
+      digitalWrite(3, LOW);
+      digitalWrite(2, LOW);
+      digitalWrite(4, HIGH);
+    } else {
+      digitalWrite(3, HIGH);
+      digitalWrite(2, LOW);
+      digitalWrite(4, LOW);
+    }
+  }
+  
+  // delay for 1 second
+  delay(1000);
+}

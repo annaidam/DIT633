@@ -69,4 +69,31 @@ void loop()
       digitalWrite(4, LOW);
     }
   } else if ((temperatureC >= 0) && (temperatureC <= 20)) {
-    if ((lightPercentage >= 21) && (
+    if ((lightPercentage >= 21) && (lightPercentage <= 60)) {
+      digitalWrite(3, LOW);
+      digitalWrite(2, LOW);
+      digitalWrite(4, HIGH);
+    } else if (lightPercentage < 21) {
+      digitalWrite(3, HIGH);
+      digitalWrite(2, LOW);
+      digitalWrite(4, LOW);
+    } else {
+      digitalWrite(3, LOW);
+      digitalWrite(2, HIGH);
+      digitalWrite(4, LOW);
+    }
+  } else if (temperatureC >= 21) {
+    if (lightPercentage > 60) {
+      digitalWrite(3, LOW);
+      digitalWrite(2, LOW);
+      digitalWrite(4, HIGH);
+    } else {
+      digitalWrite(3, HIGH);
+      digitalWrite(2, LOW);
+      digitalWrite(4, LOW);
+    }
+  }
+  
+  // delay for 1 second
+  delay(1000);
+}

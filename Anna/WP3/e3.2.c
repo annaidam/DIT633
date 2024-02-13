@@ -22,4 +22,24 @@ void setup(){
   
   for (int i = 0; i < 4; i++) {
     pinMode(rowPins[i], OUTPUT); // set the row pins to output
-    pinMode(columnPins[i], INPUT); // set t
+    pinMode(columnPins[i], INPUT); // set the column pins to input
+  }
+}
+
+void loop() {
+  for (int i = 0; i < 4; i++) {
+    digitalWrite(rowPins[i], LOW); // set all row pins low
+    
+    for (int j = 0; j < 4; j++) {
+      // check if the column pins are low at the same time the row pins are low
+      if (digitalRead(columnPins[j]) == LOW) {
+        // if yes, print the key
+        Serial.println(keys[i][j]);
+        // delay for 0.5 seconds
+        delay(500);
+      }
+    }
+    // set the row pins back to high
+    digitalWrite(rowPins[i], HIGH);
+  }
+}
