@@ -9,7 +9,7 @@
 int main() {
     // Create an array of size MAX.
     int array[MAX];
-    // Create a pointer and ppints it to the firstv element of the array.
+    // Create a pointer and point it to the firstv element of the array.
     int *ptr = array;
 
    // Seed for the random number generator.
