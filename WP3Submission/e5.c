@@ -30,10 +30,10 @@ int main() {
     printf("The last integer in the array is: %d\n", *(ptr + MAX - 1));
 
     // Print out the size of an integer (number of bytes)
-    printf("The size of an integer (number of bytes) is: %lu\n", (int) sizeof(int));
+    printf("The size of an integer (number of bytes) is: %d\n", (int) sizeof(int));
 
     // Print out the size of the whole array in bytes
-    printf("The size of the whole array in bytes is: %lu\n", (int) sizeof(array));
+    printf("The size of the whole array in bytes is: %d\n", (int) sizeof(array));
 
     // Print out each integer value and its value multiplied by two
     for (int i = 0; i < MAX; i++) {
