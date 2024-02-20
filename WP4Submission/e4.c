@@ -16,7 +16,6 @@ void swap(int* p1, int* p2);
 //main
 int main(int argc, char *argv[]) {
     int test[] = {1,2,34,5,67,3,32,12,13,10};
-    int num = 0;
     printf("32, expecting 6: ");
     search_number(32, test, 10);
     printf("\n");
