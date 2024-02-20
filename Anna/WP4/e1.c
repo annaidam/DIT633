@@ -81,18 +81,4 @@ void updateLEDs(float temp) {
   // determine the temperature range and turn on the corresponding LED
   if (temp < low) {
     digitalWrite(3, HIGH); // LED for temperature < -20
-    delay(500);
-  } else if (temp < mid && temp > low) {
-    digitalWrite(4, HIGH); // LED for temperature -20-0
-    delay(500);
-  } else if (temp < high && temp > mid) {
-    digitalWrite(5, HIGH); // LED for temperature 0-20
-    delay(500);
-  } else if (temp < max && temp > high) {
-    digitalWrite(6, HIGH); // LED for temperature > 20-60
-    delay(500);
-  } else {
-    digitalWrite(7, HIGH); // LED for temperature > 100
-    delay(500);
-  }
-}
+    delay(5
