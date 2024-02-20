@@ -1,7 +1,7 @@
-// (C) Anna Mäkinen, David Schön, Milena Mackowiak, group: 3 (2024)
+// (C) Anna Mäkinen, David Schön, Milena Maćkowiak, group: 3 (2024)
 // Work package 3
 // Exercise 6
-// Submission code: XXXXXX (provided by your TA-s)
+// Submission code: 9IL6WF (provided by your TA-s)
 
 #include <stdio.h>
 #include <string.h>
