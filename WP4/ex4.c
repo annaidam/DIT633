@@ -32,17 +32,30 @@ int main(int argc, char *argv[]) {
     search_number(99, test, 10);
     printf("\n");
 
-    sort(69, test);
+    printf("before sorting:\n");
+    for (int i = 0; i < 10; i++)
+    {
+        printf("%d ", test[i]);
+        printf("\n");
+    }
 
-    printf("32, expecting -: ");
+    sort(10, test);
+    printf("after sorting:\n");
+    for (int i = 0; i < 10; i++)
+    {
+        printf("%d ", test[i]);
+        printf("\n");
+    }
+    
+    printf("32, expecting 7: ");
     search_number(32, test, 10);
     printf("\n");
 
-    printf("1, expecting -: ");
+    printf("1, expecting 0: ");
     search_number(1, test, 10);
     printf("\n");
 
-    printf("10, expecting -: ");
+    printf("10, expecting 4: ");
     search_number(10, test, 10);
     printf("\n");
     return 0;
@@ -52,32 +65,26 @@ int main(int argc, char *argv[]) {
 
 //functions
 int search_number(int number, int tab[], int size) {
-    for (size_t i = 0; i < size; i++)
+    for (int i = 0; i < size; i++)
     {
         if (tab[i] == number) {
-            printf((char)i);
+            printf("%d", i);
             return i;
         }
     }
+    printf("%d", -1);
     return -1;
 }
 
 void sort(int number, int tab[]) {
-    int* ptr = tab;
-    int* minimum = tab;
-    int* sorted = tab;
-    
-    while (*sorted != '\0')
-    {
-        while (*ptr != '\0') {
-            if (*ptr < *minimum)
-            {
-                minimum = ptr;
+    for (int i = 0; i < number - 1; i++) {
+        int min_idx = i;
+        for (int j = i + 1; j < number; j++) {
+            if (tab[j] < tab[min_idx]) {
+                min_idx = j;
             }
         }
-        swap(sorted, minimum);
-        sorted++;
-        ptr = sorted;
+        swap(&tab[i], &tab[min_idx]);
     }
 }
 
