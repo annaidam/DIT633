@@ -3,51 +3,89 @@
 // Exercise 3
 // Submission code: XXXXXX (provided by your TA-s)
 
-#include <Servo.h>
+#include <Adafruit_NeoPixel.h>
+#include <avr/io.h>
+#include <avr/interrupt.h>
 
-int servoPin = 8;
-Servo servo;
+#define PIN 2
 
-// store seconds in variable
-volatile int seconds = 0;
+Adafruit_NeoPixel ring = Adafruit_NeoPixel(12, PIN, NEO_GRB + NEO_KHZ800);
+
+// define pin for temperature sensor
+const int temperaturePin = A0;
 
 void setup() {
-  Serial.begin(9600);
-  servo.attach(servoPin);
+  ring.begin(); // start ring
+  pinMode(temperaturePin, INPUT); // temperature sensor to input
+  pinMode(9, OUTPUT); // extra led to output
+  Serial.begin(9600); // start serial
 
-  // set Timer2 interrupt every second
-  noInterrupts();            // disable interrupts during setup
-  TCCR2A = 0;                // Timer2 Control Register A
-  TCCR2B = 0;                // Timer2 Control Register B
-  TCNT2 = 0;                 // initialise counter value to 0
-  OCR2A = 244;
-  TCCR2A |= (1 << WGM21);    // set WGM to CTC
-  TCCR2B |= (1 << CS22) | (1 << CS21) | (1 << CS20);  // set prescaler to 1024
-  TIMSK2 |= (1 << OCIE2A);   // enable timer compare interrupt
-  interrupts();              // enable interrupts
+  // set up Timer1 for regular interrupts
+  cli(); // disable interrupts
+  TCCR1A = 0; // set TCCR1A register to 0
+  TCCR1B = 0; // set TCCR1B register to 0
+  TCNT1 = 0; // initialise counter value to 0
+  OCR1A = 15624; // set the compare value
+  TCCR1B |= (1 << WGM12); // configure timer in CTC mode
+  TCCR1B |= (1 << CS12) | (1 << CS10); // set prescaler to 1024
+  TIMSK1 |= (1 << OCIE1A); // enable Timer1 compare A interrupt
+  sei(); // enable interrupts
 }
 
-void loop() {}
+// main loop gets the temperature and lights up the leds
+void loop() {
+  float temperature = getTemperature();
+  updateLEDs(temperature);
+  delay(1000);
+}
 
-ISR(TIMER2_COMPA_vect) {
-  // update seconds and print them
-  seconds++;
-  Serial.print("seconds: ");
-  Serial.println(seconds);
-  
-  // move the servo based on the seconds value
-  moveServo();
+// function to light up the leds
+void updateLEDs(float temp) {
+  // first turn off all leds
+  clearLights();
 
-  // reset the seconds to 0 after reaching 60
-  if (seconds >= 60) {
-    seconds = 0;
+  // when temperature is less than -20
+  if (temp < (-20)) {
+    // light up one light
+    ring.setPixelColor(0, 255, 0, 0);
+    ring.show();
+    // else if the temperature is between -20 and 90
+  } else if (temp >= (-20) && temp < 90) {
+    int numPixelsToLight = map(temp, -20, 90, 0, ring.numPixels());
+    // check for the temperature and lit up leds one by one based on the value
+    for (int i = 0; i < numPixelsToLight; i++) {
+      ring.setPixelColor(i, 255, 0, 0);
+    }
+    ring.show();
+    // else if the temperature is above 89
+  } else if (temp >= 90) {
+    // light up the extra led
+    digitalWrite(9, HIGH);
   }
 }
 
-void moveServo() {
-  // map the seconds value to the servo angle from 0 to 180
-  int angle = map(seconds, 0, 60, 0, 180);
+// function to turn off all the leds
+void clearLights() {
+  // go through one by one and turn all off
+  for (int i = 0; i < ring.numPixels(); i++) {
+    ring.setPixelColor(i, 0, 0, 0);
+  }
+  // turn extra led off as well
+  digitalWrite(9, LOW);
+  ring.show();
+}
 
-  // move the servo to the calculated angle
-  servo.write(angle);
+ISR(TIMER1_COMPA_vect) {}
+
+// function to get the temperature and print it in celsius
+float getTemperature() {
+  int reading = analogRead(temperaturePin);
+  float voltage = reading * 4.68 / 1024.0;
+  float temperatureC = (voltage - 0.5) * 100;
+
+  Serial.print("temp: ");
+  Serial.print(temperatureC);
+  Serial.println(" C");
+
+  return temperatureC;
 }
